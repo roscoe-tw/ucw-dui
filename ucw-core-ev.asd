@@ -55,7 +55,7 @@ This means that debug-only blocks are skipped and various variables are initiali
   `(defsystem ,name :default-component-class ucw-source-file
     ,@args))
 
-(defsystem* :ucw-core
+(defsystem* :ucw-core-ev
   :description "Core features of UnCommon Web"
   :long-description "Contains the base features essential for a useful
 Read Eval Render Loop (RERL)."
@@ -120,7 +120,7 @@ Read Eval Render Loop (RERL)."
 			  :components ((:file "window"))
 			  :depends-on (:rerl)))))
   :properties ((version "0.9"))
-  :depends-on (:arnesi :swank :iterate :yaclml :local-time
+  :depends-on (:arnesi :swank :iterate :yaclml-html5 :local-time
                :usocket :rfc2109 :net-telent-date :cl-fad
                :trivial-garbage :bordeaux-threads :closer-mop))
 
@@ -133,13 +133,13 @@ Read Eval Render Loop (RERL)."
                              (:file "message-queue")
                              (:file "basic-backend" :depends-on ("common"))
                              (:file "httpd" :depends-on ("message-queue" "basic-backend" "common")))))
-  :depends-on (:ucw-core :rfc2388-binary :puri :cl-ppcre))
+  :depends-on (:ucw-core-ev :rfc2388-binary :puri :cl-ppcre))
 
 (defsystem* :ucw.mod-lisp
   :components ((:module :src
                 :pathname "src/backend/"
                 :components ((:file "mod-lisp"))))
-  :depends-on (:ucw-core :ucw.httpd :iolib.sockets))
+  :depends-on (:ucw-core-ev :ucw.httpd :iolib.sockets))
 
 (defsystem* :ucw.iolib
   :components ((:module :src
@@ -147,7 +147,7 @@ Read Eval Render Loop (RERL)."
                 :components ((:file "common")
                              (:file "basic-backend" :depends-on ("common"))
                              (:file "iolib" :depends-on ("basic-backend" "common")))))
-  :depends-on (:ucw-core :rfc2388-binary :puri :iolib.sockets :cl-ppcre))
+  :depends-on (:ucw-core-ev :rfc2388-binary :puri :iolib.sockets :cl-ppcre))
 
 (defsystem* :ucw-core.test
   :components ((:module :test
@@ -165,4 +165,4 @@ Read Eval Render Loop (RERL)."
                                        (:file "action")
                                        (:file "callbacks")))
                  (:file "stress" :depends-on ("core")))))
-  :depends-on (:ucw-core :cxml :stefil :drakma :arnesi :iterate))
+  :depends-on (:ucw-core-ev :cxml :stefil :drakma :arnesi :iterate))

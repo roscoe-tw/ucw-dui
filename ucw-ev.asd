@@ -11,9 +11,10 @@
 (in-package :it.bese.ucw.system)
 
 ;;; We need defsystem* from the ucw-core.asd
-(asdf:oos 'asdf:load-op :ucw-core)
+;; (asdf:oos 'asdf:load-op :ucw-core-ev)
+(asdf:load-system :ucw-core-ev)
 
-(defsystem* :ucw
+(defsystem* :ucw-ev
   :description "UncommonWeb : Standard Components"
   :long-description "Containts a simple, standard component library."
   :author "Marco Baringer <mb@bese.it>"
@@ -56,7 +57,7 @@
 		    :components ((:file "tal"))
 		    :depends-on ("standard-tags")))))))
   :properties ((version "0.9"))
-  :depends-on (:ucw-core :cl-ppcre :closer-mop))
+  :depends-on (:ucw-core-ev :cl-ppcre :closer-mop))
 
 
 (defsystem* :ucw.manual-examples
