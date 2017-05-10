@@ -13,7 +13,7 @@
   "Either use slot value, or compute content-type from current application charset."
   (or (call-next-method)
       (setf (window-component.content-type window)
-            (format nil "text/html~@[; charset=~A~]"
+	    (format nil "text/html~@[; charset=~A~]"
                     (application.charset (context.application *context*))))))
 
 (defmethod render :before ((window window-component))
