@@ -1,6 +1,6 @@
 * basic-backend.lisp
 ** test-http-utf-8
-#+BEGIN_SRC lisp :tangle basic-backend.lisp
+#+BEGIN_SRC lisp :tangle basic-backend.lisp :padline no
 ;; -*- lisp -*-
 ;;; tangled : basic-backend.org
 
@@ -255,12 +255,17 @@
          (pieces (split-on-space line)))
     (ucw.backend.dribble "In read-basic-request, first line in :us-ascii is ~S, pieces are ~S"
                          (ignore-errors
-                           (octets-to-string line :us-ascii)) pieces)
+                           (octets-to-string line (or (external-format-for :http)
+						      :us-ascii))) pieces)
     (destructuring-bind (http-method uri &optional protocol) pieces
       (declare (ignore protocol))
       ;; uri's must be foo%12%34bar encoded utf-8 strings in us-ascii. processing anything else here would be ad-hoc...
-      (setf (raw-uri request) (coerce (octets-to-string uri :us-ascii) 'simple-string)
-            (http-method request) (coerce (octets-to-string http-method :us-ascii) 'simple-string)
+      (setf (raw-uri request) (coerce (octets-to-string uri (or (external-format-for :http)
+								:us-ascii))
+				      'simple-string)
+            (http-method request) (coerce (octets-to-string http-method (or (external-format-for :http)
+									    :us-ascii))
+					  'simple-string)
             (headers request) (read-request-headers stream))
       (ucw.backend.dribble "Request headers are ~S" (headers request))
       (aif (position #\? (raw-uri request))
@@ -305,8 +310,10 @@
     (for header-line = (read-line-from-network stream))
     (until (= 0 (length header-line)))
     (for (name . value) = (split-header-line header-line))
-    (collect (cons (octets-to-string name :us-ascii)
-                   (octets-to-string value :iso-8859-1)))))
+    (collect (cons (octets-to-string name (or (external-format-for :http)
+					      :us-ascii))
+                   (octets-to-string value (or (external-format-for :http)
+					       :iso-8859-1))))))
 
 (defmethod close-request ((request basic-request))
   request)
@@ -334,11 +341,13 @@
   (write-byte 10 stream))
 
 (defun write-header-line (name value stream)
-  (write-sequence (string-to-octets name :us-ascii) stream)
+  (write-sequence (string-to-octets name (or (external-format-for :http)
+					     :us-ascii)) stream)
   ;; ": "
   (write-byte 58 stream)
   (write-byte 32 stream)
-  (write-sequence (string-to-octets value :iso-8859-1) stream)
+  (write-sequence (string-to-octets value (or (external-format-for :http)
+					      :iso-8859-1)) stream)
   (write-crlf stream))
 
 (defmethod encoding ((response basic-response))

@@ -1,3 +1,5 @@
+* oringinal
+#+BEGIN_SRC lisp :tangle common.lisp :padline no
 ;;; -*- lisp -*-
 ;;; tangled : common.org
 
@@ -87,7 +89,7 @@
    (find-if #'(lambda (typespec)
                 (find extension (rest typespec)
                       :test #'string-equal))
-            *mime-types*)))
+            ,*mime-types*)))
 
 (defun map-query-path-to-file (query-path url-base directory)
   "Converts QUERY-PATH to a file on the local filesystem assuming
@@ -334,3 +336,5 @@ exists), otherwise returns NIL."
 ;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#+END_SRC
