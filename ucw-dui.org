@@ -1,7 +1,8 @@
 * 時間
-  2017.05.03
-* ucw-ev.asd
-#+BEGIN_SRC lisp :tangle ucw-ev.asd :padline no
+- 2017.05.03
+- <2017-06-19 一> 將 ucw-ev 改為 ucw-dui ，與 github 專案名一致
+* ucw-dui.asd
+#+BEGIN_SRC lisp :tangle ucw-dui.asd :padline no
 ;;; -*- lisp -*-
 
 ;;;; ASDF system definition file for UCW
@@ -15,10 +16,10 @@
 (in-package :it.bese.ucw.system)
 
 ;;; We need defsystem* from the ucw-core.asd
-;; (asdf:oos 'asdf:load-op :ucw-core-ev)
-(asdf:load-system :ucw-core-ev)
+;; (asdf:oos 'asdf:load-op :ucw-core-dui)
+(asdf:load-system :ucw-core-dui)
 
-(defsystem* :ucw-ev
+(defsystem* :ucw-dui
   :description "UncommonWeb : Standard Components"
   :long-description "Containts a simple, standard component library."
   :author "Marco Baringer <mb@bese.it>"
@@ -61,7 +62,7 @@
 		    :components ((:file "tal"))
 		    :depends-on ("standard-tags")))))))
   :properties ((version "0.9"))
-  :depends-on (:ucw-core-ev :cl-ppcre :closer-mop))
+  :depends-on (:ucw-core-dui :cl-ppcre :closer-mop))
 
 
 (defsystem* :ucw.manual-examples
@@ -94,8 +95,8 @@
 				       (:file "wiki" :depends-on ("examples")))))))
   :depends-on (:ucw))
 #+END_SRC
-* ucw-core-ev.asd
-#+BEGIN_SRC lisp :tangle ucw-core-ev.asd :padline no
+* ucw-core-dui.asd
+#+BEGIN_SRC lisp :tangle ucw-core-dui.asd :padline no
 ;;; -*- lisp -*-
 
 ;;;; ASDF system definition file for UCW
@@ -153,7 +154,7 @@ This means that debug-only blocks are skipped and various variables are initiali
   `(defsystem ,name :default-component-class ucw-source-file
     ,@args))
 
-(defsystem* :ucw-core-ev
+(defsystem* :ucw-core-dui
   :description "Core features of UnCommon Web"
   :long-description "Contains the base features essential for a useful
 Read Eval Render Loop (RERL)."
@@ -231,13 +232,13 @@ Read Eval Render Loop (RERL)."
                              (:file "message-queue")
                              (:file "basic-backend" :depends-on ("common"))
                              (:file "httpd" :depends-on ("message-queue" "basic-backend" "common")))))
-  :depends-on (:ucw-core-ev :rfc2388-binary :puri :cl-ppcre))
+  :depends-on (:ucw-core-dui :rfc2388-binary :puri :cl-ppcre))
 
 (defsystem* :ucw.mod-lisp
   :components ((:module :src
                 :pathname "src/backend/"
                 :components ((:file "mod-lisp"))))
-  :depends-on (:ucw-core-ev :ucw.httpd :iolib.sockets))
+  :depends-on (:ucw-core-dui :ucw.httpd :iolib.sockets))
 
 (defsystem* :ucw.iolib
   :components ((:module :src
@@ -245,7 +246,7 @@ Read Eval Render Loop (RERL)."
                 :components ((:file "common")
                              (:file "basic-backend" :depends-on ("common"))
                              (:file "iolib" :depends-on ("basic-backend" "common")))))
-  :depends-on (:ucw-core-ev :rfc2388-binary :puri :iolib.sockets :cl-ppcre))
+  :depends-on (:ucw-core-dui :rfc2388-binary :puri :iolib.sockets :cl-ppcre))
 
 (defsystem* :ucw-core.test
   :components ((:module :test
@@ -263,7 +264,7 @@ Read Eval Render Loop (RERL)."
                                        (:file "action")
                                        (:file "callbacks")))
                  (:file "stress" :depends-on ("core")))))
-  :depends-on (:ucw-core-ev :cxml :stefil :drakma :arnesi :iterate))
+  :depends-on (:ucw-core-dui :cxml :stefil :drakma :arnesi :iterate))
 
 
 #+END_SRC

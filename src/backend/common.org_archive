@@ -1,5 +1,17 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/screw/common-lisp/ucw-every_push/src/backend/common.org
+
+
+* oringinal
+  :PROPERTIES:
+  :ARCHIVE_TIME: 2017-06-12 一 14:24
+  :ARCHIVE_FILE: ~/common-lisp/ucw-every_push/src/backend/common.org
+  :ARCHIVE_CATEGORY: common
+  :END:
+#+BEGIN_SRC lisp :tangle common.lisp :padline no
 ;;; -*- lisp -*-
-;;; tangled : common.org
 
 (in-package :it.bese.ucw.core)
 
@@ -262,8 +274,7 @@ exists), otherwise returns NIL."
                          (eswitch (it :test #'string=)
                            ("ASCII" (octets-to-string buffer :us-ascii))
                            ("UTF-8" (octets-to-string buffer :utf-8)))
-                         ;; (octets-to-string buffer :iso-8859-1))))))
-			 (octets-to-string buffer :utf-8))))))
+                         (octets-to-string buffer :iso-8859-1))))))
               ("multipart/form-data"
                (when (and *request-content-length-limit*  (> content-length *request-content-length-limit*))
                  (request-content-length-limit-reached content-length))
@@ -334,3 +345,5 @@ exists), otherwise returns NIL."
 ;; THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 ;; (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 ;; OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#+END_SRC
