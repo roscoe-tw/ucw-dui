@@ -55,7 +55,7 @@ This means that debug-only blocks are skipped and various variables are initiali
   `(defsystem ,name :default-component-class ucw-source-file
     ,@args))
 
-(defsystem* :ucw-core-ev
+(defsystem* :ucw-core-dui
   :description "Core features of UnCommon Web"
   :long-description "Contains the base features essential for a useful
 Read Eval Render Loop (RERL)."
@@ -133,13 +133,13 @@ Read Eval Render Loop (RERL)."
                              (:file "message-queue")
                              (:file "basic-backend" :depends-on ("common"))
                              (:file "httpd" :depends-on ("message-queue" "basic-backend" "common")))))
-  :depends-on (:ucw-core-ev :rfc2388-binary :puri :cl-ppcre))
+  :depends-on (:ucw-core-dui :rfc2388-binary :puri :cl-ppcre))
 
 (defsystem* :ucw.mod-lisp
   :components ((:module :src
                 :pathname "src/backend/"
                 :components ((:file "mod-lisp"))))
-  :depends-on (:ucw-core-ev :ucw.httpd :iolib.sockets))
+  :depends-on (:ucw-core-dui :ucw.httpd :iolib.sockets))
 
 (defsystem* :ucw.iolib
   :components ((:module :src
@@ -147,7 +147,7 @@ Read Eval Render Loop (RERL)."
                 :components ((:file "common")
                              (:file "basic-backend" :depends-on ("common"))
                              (:file "iolib" :depends-on ("basic-backend" "common")))))
-  :depends-on (:ucw-core-ev :rfc2388-binary :puri :iolib.sockets :cl-ppcre))
+  :depends-on (:ucw-core-dui :rfc2388-binary :puri :iolib.sockets :cl-ppcre))
 
 (defsystem* :ucw-core.test
   :components ((:module :test
@@ -165,4 +165,4 @@ Read Eval Render Loop (RERL)."
                                        (:file "action")
                                        (:file "callbacks")))
                  (:file "stress" :depends-on ("core")))))
-  :depends-on (:ucw-core-ev :cxml :stefil :drakma :arnesi :iterate))
+  :depends-on (:ucw-core-dui :cxml :stefil :drakma :arnesi :iterate))
